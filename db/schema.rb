@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110428211822) do
+ActiveRecord::Schema.define(:version => 20110429225218) do
 
   create_table "matches", :force => true do |t|
     t.integer  "season_id"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20110428211822) do
     t.string   "password_salt"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin"
   end
 
 end

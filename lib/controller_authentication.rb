@@ -17,7 +17,7 @@
 #   before_filter :login_required, :except => [:index, :show]
 module ControllerAuthentication
   def self.included(controller)
-    controller.send :helper_method, :current_user, :logged_in?, :redirect_to_target_or_default
+    controller.send :helper_method, :current_user, :logged_in?, :admin?, :redirect_to_target_or_default
   end
 
   def current_user
@@ -28,10 +28,19 @@ module ControllerAuthentication
     current_user
   end
 
+  def admin?
+    current_user && current_user.admin?
+  end
+
   def login_required
     unless logged_in?
-      store_target_location
-      redirect_to login_url, :alert => "You must first log in or sign up before accessing this page."
+      unauthorize!
+    end
+  end
+
+  def admin_required
+    unless admin?
+      unauthorize!
     end
   end
 
@@ -44,5 +53,10 @@ module ControllerAuthentication
 
   def store_target_location
     session[:return_to] = request.url
+  end
+
+  def unauthorize!
+    store_target_location
+    redirect_to login_url, :alert => "You must first log in or sign up before accessing this page."
   end
 end

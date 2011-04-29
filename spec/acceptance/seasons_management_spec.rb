@@ -7,7 +7,15 @@ feature "Create new season", %q{
 } do
 
   background do
-    User.create(:username => "admin", :email => "admin@lfp.es", :password => "secret", :password_confirmation => "secret")
+    user = User.new(
+      :username => "admin",
+      :email => "admin@lfp.es",
+      :password => "secret",
+      :password_confirmation => "secret"
+    )
+    user.admin = true
+    user.save
+
     Team.create(:name => "Real Madrid")
     Team.create(:name => "Barcelona")
     Team.create(:name => "Sevilla")
@@ -42,7 +50,11 @@ feature "Create new season", %q{
   end
 
   scenario "Create season with invalid user" do
-    visit "/logout"
+    user = User.find_by_username("admin")
+    user.admin = false
+    user.save!
+
+    login_as "admin", "secret"
     visit "/seasons/new"
 
     current_path.should == login_path
