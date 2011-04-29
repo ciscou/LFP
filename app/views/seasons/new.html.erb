@@ -1,0 +1,24 @@
+<% title "Crear nueva temporada" %>
+
+<%= form_for @season do |f| %>
+  <%if @season.errors.any? %>
+    <ul>
+      <% @season.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <p>
+    <%= f.label :number, "Número de jornada" %><br/>
+    <%= f.text_field :number %>
+  </p>
+  <%= f.fields_for :matches do |matches_form| %>
+    <p>
+      <%= matches_form.collection_select :team_1_id, Team.all, :id, :name, :include_blank => "Equipo 1" %>
+      <%= matches_form.collection_select :team_2_id, Team.all, :id, :name, :include_blank => "Equipo 2" %>
+    </p>
+  <% end %>
+  <p>
+    <%= f.submit "Guardar jornada" %>
+  </p>
+<% end %>

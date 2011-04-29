@@ -1,0 +1,20 @@
+<% if @season %>
+
+  <% title "Jornada #{@season.number}" %>
+
+  <% @season.matches.each do |match| %>
+    <p>
+      <%= match.team_1.name %>
+      <%= match.team_2.name %>
+    </p>
+  <% end %>
+
+<% else %>
+
+  <% title "Sin jornadas" %>
+
+  <p>
+    Lo sentimos, aún no se ha dado de alta la jornada actual
+  </p>
+
+<% end %>
