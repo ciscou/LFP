@@ -1,0 +1,23 @@
+<% title "Jornada #{@season.number}" %>
+
+<%= form_for [@season, @bet] do |f| %>
+  <table>
+    <tr>
+      <th>Equipo 1</th>
+      <th>Equipo 2</th>
+    </tr>
+    <%= f.fields_for :bet_results do |f2| %>
+      <%= f2.hidden_field :match_id %>
+      <tr>
+        <td><%= f2.label :team_1 %></td>
+        <td><%= f2.label :team_2 %></td>
+        <td><%= f2.text_field :result %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <%= f.submit "Apostar" %>
+    </tr>
+  </table>
+<% end %>
+
+<br/>

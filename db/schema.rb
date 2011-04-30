@@ -10,7 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110429225218) do
+ActiveRecord::Schema.define(:version => 20110429232844) do
+
+  create_table "bet_results", :force => true do |t|
+    t.integer  "bet_id"
+    t.integer  "match_id"
+    t.string   "result"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bets", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "season_id"
+    t.integer  "score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "matches", :force => true do |t|
     t.integer  "season_id"

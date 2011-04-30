@@ -1,5 +1,5 @@
 class SeasonsController < ApplicationController
-  before_filter :admin_required
+  before_filter :admin_required, :except => [:show, :current]
 
   def show
     @season = Season.find(params[:id])
